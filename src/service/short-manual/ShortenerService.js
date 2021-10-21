@@ -2,65 +2,53 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable no-underscore-dangle */
 const {nanoid} = require('nanoid');
+const axios = require('axios');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
 class ShortenerService {
     constructor() {
-        this._notes = [];
+        this._station = [];
     }
 
-    registerStation({uuid, webid}) {
+    async registerStation({uuid, webid}) {
         const id = nanoid(3);
         // TODO: Add the query into wordpress service to get long URL
         // TODO: Map long URL to short URL
         // TODO: Save the short URL using db.
-
-        const newNote = {
+        const respHeader = axios.get(`http://easeplantz.eu.org/wp-json/wp/v2/search?search=${webid}`)
+        console.log(respHeader.title);
+        const longUrl = respHeader.url;
+        const newStation = {
             uuid, webid, id, longUrl, shortUrl,
         };
-        this._notes.push(newNote);
+        this._station.push(newStation);
 
-        const isSuccess = this._notes.filter((note) => note.id === id).length > 0;
+        const isSuccess = this._station.filter((note) => note.id === id).length > 0;
         if (!isSuccess) {
             throw new InvariantError('Catatan gagal ditambahkan');
         }
         return id;
     }
 
-    getNotes() {
-        return this._notes;
+    getStation() {
+        return this._station;
     }
 
-    getNoteById(id) {
-        const note = this._notes.filter((n) => n.id === id)[0];
+    getStationById(id) {
+        const station = this._station.filter((n) => n.id === id)[0];
         if (!note) {
-            throw new NotFoundError('Catatan tidak ditemukan');
+            throw new NotFoundError('Stasiun tidak ditemukan');
         }
-        return note;
+        return station;
     }
 
-    editNoteById(id, {title, body, tags}) {
-        const index = this._notes.findIndex((note) => note.id === id);
+    deleteStationById(id) {
+        const index = this._station.findIndex((note) => note.id === id);
         if (index === -1) {
-            throw new NotFoundError('Gagal memperbarui catatan. Id tidak ditemukan');
+            throw new NotFoundError('Stasiun gagal dihapus. Id tidak ditemukan');
         }
-        const updatedAt = new Date().toISOString();
-        this._notes[index] = {
-            ...this._notes[index],
-            title,
-            tags,
-            body,
-            updatedAt,
-        };
-    }
-
-    deleteNoteById(id) {
-        const index = this._notes.findIndex((note) => note.id === id);
-        if (index === -1) {
-            throw new NotFoundError('Catatan gagal dihapus. Id tidak ditemukan');
-        }
-        this._notes.splice(index, 1);
+        this._station.splice(index, 1);
     }
 }
 
