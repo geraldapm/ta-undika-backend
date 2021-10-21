@@ -3,14 +3,14 @@
 const ClientError = require('../../exceptions/ClientError');
 /** shortener service
      */
-class SensorService {
+class SensorHandler {
     /** initializer
      */
     constructor() {
-        this.getSensorService = this.getSensorService.bind(this);
-        this.addSensorService = this.getSensorService.bind(this);
-        this.updateSensorService = this.updateSensorService.bind(this);
-        this.deleteSensorService = this.deleteSensorService.bind(this);
+        this.getSensorHandler = this.getSensorHandler.bind(this);
+        this.addSensorHandler = this.getSensorHandler.bind(this);
+        this.updateSensorHandler = this.updateSensorHandler.bind(this);
+        this.deleteSensorHandler = this.deleteSensorHandler.bind(this);
     }
     /*
      * function handler
@@ -33,7 +33,7 @@ class SensorService {
      * @param  {object} req
      * @param  {object} res
      */
-    async getSensorService(req, res) {
+    async getSensorHandler(req, res) {
         try {
             const {name = 'fulan', hobby = 'senyum'} = req.query;
             console.log(`Ini sensor punya ${name} dan hobi saya ${hobby}`);
@@ -47,7 +47,7 @@ class SensorService {
         }
     }
 
-    async addSensorService(req, res) {
+    async addSensorHandler(req, res) {
         try {
             const {name = 'fulan', hobby = 'senyum'} = req.query;
             console.log(`Nama saya ${name} dan hobi saya ${hobby}`);
@@ -61,7 +61,7 @@ class SensorService {
         }
     }
 
-    async updateSensorService(req, res) {
+    async updateSensorHandler(req, res) {
         try {
             const {name = 'fulan', hobby = 'senyum'} = req.query;
             console.log(`Nama saya ${name} dan hobi saya ${hobby}`);
@@ -74,7 +74,7 @@ class SensorService {
         }
     }
 
-    async deleteSensorService(req, res) {
+    async deleteSensorHandler(req, res) {
         try {
             const {name = 'fulan', hobby = 'senyum'} = req.query;
             console.log(`Nama saya ${name} dan hobi saya ${hobby}`);
@@ -88,4 +88,4 @@ class SensorService {
     }
 }
 
-module.exports = SensorService;
+module.exports = SensorHandler;

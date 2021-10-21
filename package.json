@@ -16,6 +16,7 @@
         "dotenv": "^10.0.0",
         "eslint": "^7.27.0",
         "eslint-config-google": "^0.14.0",
+        "kill-port": "^1.6.1",
         "nodemon": "^2.0.7"
     },
     "dependencies": {

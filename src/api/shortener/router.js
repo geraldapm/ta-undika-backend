@@ -2,8 +2,8 @@
 /* eslint-disable new-cap */
 const express = require('express');
 const router = express.Router();
-const ShortenerService = require('./handler');
-short = new ShortenerService;
+const ShortenerHandler = require('./handler');
+short = new ShortenerHandler;
 
 router.get('/', short.getIndexHandler);
 router.get('/:urlId', short.redirectIndexHandler);

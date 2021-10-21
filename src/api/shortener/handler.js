@@ -3,7 +3,7 @@
 const ClientError = require('../../exceptions/ClientError');
 /** shortener service
      */
-class ShortenerService {
+class ShortenerHandler {
     /** initializer
      */
     constructor() {
@@ -36,7 +36,7 @@ class ShortenerService {
     async getIndexHandler(req, res) {
         try {
             const {name = 'fulan', hobby = 'senyum'} = req.query;
-            console.log(`Nama saya ${name} dan hobi saya ${hobby}`);
+            console.log(`Nama saya ${req.param} dan hobi saya ${hobby}`);
             return res.status(200).json({
                 status: 'success',
                 message: `nama saya ${name} dan hobi saya ${hobby}`,
@@ -89,4 +89,4 @@ class ShortenerService {
     }
 }
 
-module.exports = ShortenerService;
+module.exports = ShortenerHandler;
