@@ -19,7 +19,6 @@ class ShortenerService {
         const respHeader = await axios.get(`http://${process.env.WEB_HOST}/wp-json/wp/v2/search?search=${webid}`);
         const longUrl = respHeader.data[0].url;
         const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
-        console.log(respHeaderMeta.data.meta);
         const meta = respHeaderMeta.data.meta;
         const shortUrl = `http://${process.env.HOST}:${process.env.PORT}/${id}`;
         const newStation = {
