@@ -7,9 +7,10 @@ class SensorService {
     /** initializer
      */
     constructor() {
-        this.getIndexHandler = this.getIndexHandler.bind(this);
-        this.postIndexHandler = this.postIndexHandler.bind(this);
-        this.deleteIndexHandler = this.deleteIndexHandler.bind(this);
+        this.getSensorService = this.getSensorService.bind(this);
+        this.addSensorService = this.getSensorService.bind(this);
+        this.updateSensorService = this.updateSensorService.bind(this);
+        this.deleteSensorService = this.deleteSensorService.bind(this);
     }
     /*
      * function handler
@@ -35,10 +36,10 @@ class SensorService {
     async getSensorService(req, res) {
         try {
             const {name = 'fulan', hobby = 'senyum'} = req.query;
-            console.log(`Nama saya ${name} dan hobi saya ${hobby}`);
+            console.log(`Ini sensor punya ${name} dan hobi saya ${hobby}`);
             return res.status(200).json({
                 status: 'success',
-                message: `nama saya ${name} dan hobi saya ${hobby}`,
+                message: `Ini sensor punya ${name} dan hobi saya ${hobby}`,
             });
         } catch (e) {
             console.log(e);
@@ -60,7 +61,7 @@ class SensorService {
         }
     }
 
-    async editSensorService(req, res) {
+    async updateSensorService(req, res) {
         try {
             const {name = 'fulan', hobby = 'senyum'} = req.query;
             console.log(`Nama saya ${name} dan hobi saya ${hobby}`);

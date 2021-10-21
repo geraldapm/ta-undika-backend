@@ -8,6 +8,7 @@ const app = express();
 const cors = require('cors');
 
 const shortener = require('./api/shortener/router');
+const sensor = require('./api/sensor/router');
 
 app.use(cors());
 app.use(logger('dev'));
@@ -16,6 +17,7 @@ app.use(express.urlencoded({limit: '50mb', extended: true}));
 
 /* Add up routes */
 app.use('/', shortener);
+app.use('/sensor', sensor);
 
 const porthttp = process.env.PORT || 5000;
 const hostname = process.env.HOST || 'localhost';

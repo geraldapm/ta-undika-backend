@@ -10,6 +10,7 @@ class ShortenerService {
         this.getIndexHandler = this.getIndexHandler.bind(this);
         this.postIndexHandler = this.postIndexHandler.bind(this);
         this.deleteIndexHandler = this.deleteIndexHandler.bind(this);
+        this.redirectIndexHandler = this.redirectIndexHandler.bind(this);
     }
     /*
      * function handler
@@ -39,6 +40,20 @@ class ShortenerService {
             return res.status(200).json({
                 status: 'success',
                 message: `nama saya ${name} dan hobi saya ${hobby}`,
+            });
+        } catch (e) {
+            console.log(e);
+            this.handleClientError(e);
+        }
+    }
+
+    async redirectIndexHandler(req, res) {
+        try {
+            const {name = 'fulan', hobby = 'senyum'} = req.query;
+            console.log(`Nama saya ${name} dan hobi saya ${hobby}`);
+            return res.status(200).json({
+                status: 'success',
+                message: 'Redirected to nganu',
             });
         } catch (e) {
             console.log(e);
