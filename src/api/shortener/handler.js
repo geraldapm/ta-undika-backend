@@ -1,13 +1,21 @@
 /* eslint-disable require-jsdoc */
+
 const ClientError = require('../../exceptions/ClientError');
+/** shortener service
+     */
 class ShortenerService {
+    /** initializer
+     */
     constructor() {
         this.getIndexHandler = this.getIndexHandler.bind(this);
         this.postIndexHandler = this.postIndexHandler.bind(this);
         this.deleteIndexHandler = this.deleteIndexHandler.bind(this);
     }
-
-    handleClientError(error, h) {
+    /*
+     * function handler
+     * @param  {object} error
+     */
+    handleClientError(error) {
         if (error instanceof ClientError) {
             return res.status(e.statusCode).json({
                 status: 'fail',
@@ -20,7 +28,10 @@ class ShortenerService {
             message: 'internal server execption',
         });
     }
-
+    /**
+     * @param  {object} req
+     * @param  {object} res
+     */
     async getIndexHandler(req, res) {
         try {
             const {name = 'fulan', hobby = 'senyum'} = req.query;
