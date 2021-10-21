@@ -1,7 +1,7 @@
 {
     "events": {
-      "restart": "kill-port 5000; npm run test",
-      "crash": "kill-port 5000; npm run test"
+      "restart": "kill-port 5000",
+      "crash": "kill-port 5000"
     },
     "delay": "1"
   }
