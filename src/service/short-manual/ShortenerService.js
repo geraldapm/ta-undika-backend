@@ -16,35 +16,38 @@ class ShortenerService {
         // TODO: Add the query into wordpress service to get long URL
         // TODO: Map long URL to short URL
         // TODO: Save the short URL using db.
-        const respHeader = axios.get(`http://easeplantz.eu.org/wp-json/wp/v2/search?search=${webid}`)
-        console.log(respHeader.title);
-        const longUrl = respHeader.url;
+        const respHeader = await axios.get(`http://${process.env.WEB_HOST}/wp-json/wp/v2/search?search=${webid}`);
+        const longUrl = respHeader.data[0].url;
+        const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
+        console.log(respHeaderMeta.data.meta);
+        const meta = respHeaderMeta.data.meta;
+        const shortUrl = `http://${process.env.HOST}:${process.env.PORT}/${id}`;
         const newStation = {
-            uuid, webid, id, longUrl, shortUrl,
+            uuid, webid, id, longUrl, shortUrl, meta,
         };
         this._station.push(newStation);
 
-        const isSuccess = this._station.filter((note) => note.id === id).length > 0;
+        const isSuccess = this._station.filter((station) => station.id === id).length > 0;
         if (!isSuccess) {
             throw new InvariantError('Catatan gagal ditambahkan');
         }
-        return id;
+        return {id, shortUrl};
     }
 
-    getStation() {
+    getStations() {
         return this._station;
     }
 
     getStationById(id) {
         const station = this._station.filter((n) => n.id === id)[0];
-        if (!note) {
+        if (!station) {
             throw new NotFoundError('Stasiun tidak ditemukan');
         }
         return station;
     }
 
     deleteStationById(id) {
-        const index = this._station.findIndex((note) => note.id === id);
+        const index = this._station.findIndex((station) => station.id === id);
         if (index === -1) {
             throw new NotFoundError('Stasiun gagal dihapus. Id tidak ditemukan');
         }

@@ -3,7 +3,9 @@
 const express = require('express');
 const router = express.Router();
 const ShortenerHandler = require('./handler');
-short = new ShortenerHandler;
+const ShortenerValidator = require('../../validator/shortener');
+const ShortenerService = require('../../service/short-manual/ShortenerService');
+short = new ShortenerHandler(new ShortenerService, ShortenerValidator);
 
 router.get('/', short.getIndexHandler);
 router.get('/:urlId', short.redirectIndexHandler);
