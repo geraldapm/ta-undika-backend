@@ -9,9 +9,12 @@ class ShortenerHandler {
         this._service = service;
         this._validator = validator;
         this.getIndexHandler = this.getIndexHandler.bind(this);
+        this.getIndexDetailsHandler = this.getIndexDetailsHandler.bind(this);
         this.postIndexHandler = this.postIndexHandler.bind(this);
         this.deleteIndexHandler = this.deleteIndexHandler.bind(this);
         this.redirectIndexHandler = this.redirectIndexHandler.bind(this);
+        this.getStationDetailsHandler =
+         this.getStationDetailsHandler.bind(this);
     }
     /*
      * function handler
@@ -68,6 +71,32 @@ class ShortenerHandler {
             const {urlId} = req.params;
             const station = await this._service.getStationById(urlId);
             return res.redirect(station.longUrl);
+        } catch (e) {
+            console.log(e);
+            this.handleClientError(e, res);
+        }
+    }
+
+    async getIndexDetailsHandler(req, res) {
+        try {
+            const {urlId} = req.params;
+            const station = await this._service.getStationById(urlId);
+            return res.status(200).json({
+                status: 'success',
+                data: {
+                    station,
+                },
+            });
+        } catch (e) {
+            console.log(e);
+            this.handleClientError(e, res);
+        }
+    }
+
+    async getStationDetailsHandler(req, res) {
+        try {
+            const {uuid} = req.params;
+            const station = await this._service.getStationByUUId(uuid);
             return res.status(200).json({
                 status: 'success',
                 data: {
@@ -97,13 +126,14 @@ class ShortenerHandler {
 
     async deleteIndexHandler(req, res) {
         try {
-            const {id} = req.params.urlId;
-            await this._service.deleteStationById(id);
+            const {uuid} = req.params;
+            await this._service.deleteStationByUUId(uuid);
             return res.status(200).json({
                 status: 'success',
                 message: 'Stasiun berhasil unregister.',
             });
         } catch (e) {
+            console.log(e);
             this.handleClientError(e, res);
         }
     }

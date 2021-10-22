@@ -12,6 +12,10 @@ class ShortenerService {
     }
 
     async registerStation({uuid, webid}) {
+        const station = this._station.filter((n) => n.uuid === uuid)[0];
+        if (station) {
+            throw new InvariantError('Stasiun sudah terdaftar.');
+        }
         const id = nanoid(3);
         // TODO: Add the query into wordpress service to get long URL
         // TODO: Map long URL to short URL
@@ -45,10 +49,18 @@ class ShortenerService {
         return station;
     }
 
-    deleteStationById(id) {
-        const index = this._station.findIndex((station) => station.id === id);
+    getStationByUUId(uuid) {
+        const station = this._station.filter((n) => n.uuid === uuid)[0];
+        if (!station) {
+            throw new NotFoundError('Stasiun tidak ditemukan');
+        }
+        return station;
+    }
+
+    deleteStationByUUId(uuid) {
+        const index = this._station.findIndex((station) => station.uuid === uuid);
         if (index === -1) {
-            throw new NotFoundError('Stasiun gagal dihapus. Id tidak ditemukan');
+            throw new NotFoundError('Stasiun gagal dihapus. UUID tidak ditemukan');
         }
         this._station.splice(index, 1);
     }
