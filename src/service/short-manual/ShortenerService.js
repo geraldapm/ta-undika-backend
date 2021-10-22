@@ -5,10 +5,11 @@ const {nanoid} = require('nanoid');
 const axios = require('axios');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
+const Station = require('../../models/InMemory/station');
 
 class ShortenerService {
     constructor() {
-        this._station = [];
+        this._station = Station;
     }
 
     async registerStation({uuid, webid}) {
