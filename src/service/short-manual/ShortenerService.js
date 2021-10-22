@@ -30,7 +30,7 @@ class ShortenerService {
         if (!isSuccess) {
             throw new InvariantError('Catatan gagal ditambahkan');
         }
-        return {id, shortUrl};
+        return {id, shortUrl, longUrl};
     }
 
     getStations() {

@@ -1,28 +1,18 @@
 /* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 /* eslint-disable no-underscore-dangle */
-const {nanoid} = require('nanoid');
-const axios = require('axios');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
-class ShortenerService {
+class SensorService {
     constructor() {
         this._station = [];
     }
     // TODO: Create the service handler for SensorService!
-    async registerStation({uuid, webid}) {
+    async addSensorByID({uuid, sensors}) {
         const id = nanoid(3);
-        // TODO: Add the query into wordpress service to get long URL
-        // TODO: Map long URL to short URL
-        // TODO: Save the short URL using db.
-        const respHeader = await axios.get(`http://${process.env.WEB_HOST}/wp-json/wp/v2/search?search=${webid}`);
-        const longUrl = respHeader.data[0].url;
-        const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
-        const meta = respHeaderMeta.data.meta;
-        const shortUrl = `http://${process.env.HOST}:${process.env.PORT}/${id}`;
         const newStation = {
-            uuid, webid, id, longUrl, shortUrl, meta,
+            uuid, sensors, id, longUrl, shortUrl, meta,
         };
         this._station.push(newStation);
 
@@ -33,20 +23,20 @@ class ShortenerService {
         return {id, shortUrl};
     }
 
-    getStations() {
+    getSensorService() {
         return this._station;
     }
 
-    getStationById(id) {
-        const station = this._station.filter((n) => n.id === id)[0];
+    getSensorById(uuid) {
+        const station = this._station.filter((n) => n.id === uuid)[0];
         if (!station) {
             throw new NotFoundError('Stasiun tidak ditemukan');
         }
         return station;
     }
 
-    deleteStationById(id) {
-        const index = this._station.findIndex((station) => station.id === id);
+    deleteSensorById(uuid) {
+        const index = this._station.findIndex((station) => station.id === uuid);
         if (index === -1) {
             throw new NotFoundError('Stasiun gagal dihapus. Id tidak ditemukan');
         }
@@ -54,4 +44,4 @@ class ShortenerService {
     }
 }
 
-module.exports = ShortenerService;
+module.exports = SensorService;

@@ -46,13 +46,14 @@ class ShortenerHandler {
         try {
             this._validator.validateShortPayload(req.body);
             const {uuid, webid = 'Desa Made'} = req.body;
-            const {stationID,
-                shortUrl} = await this._service.registerStation({uuid, webid});
+            const {stationID, shortUrl,
+                longUrl} = await this._service.registerStation({uuid, webid});
             return res.status(200).json({
                 status: 'success',
                 message: 'Stasiun berhasil diregister',
                 data: {
                     stationID,
+                    longUrl,
                     shortUrl,
                 },
             });
@@ -66,6 +67,7 @@ class ShortenerHandler {
         try {
             const {urlId} = req.params;
             const station = await this._service.getStationById(urlId);
+            return res.redirect(station.longUrl);
             return res.status(200).json({
                 status: 'success',
                 data: {
