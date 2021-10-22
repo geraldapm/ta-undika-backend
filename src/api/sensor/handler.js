@@ -4,9 +4,9 @@ const ClientError = require('../../exceptions/ClientError');
 /** shortener service
      */
 class SensorHandler {
-    /** initializer
-     */
-    constructor() {
+    constructor(service, validator) {
+        this._service = service;
+        this._validator = validator;
         this.getSensorHandler = this.getSensorHandler.bind(this);
         this.addSensorHandler = this.getSensorHandler.bind(this);
         this.updateSensorHandler = this.updateSensorHandler.bind(this);

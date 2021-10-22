@@ -16,8 +16,8 @@ app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 
 /* Add up routes */
-app.use('/', shortener);
 app.use('/sensor', sensor);
+app.use('/', shortener);
 
 const porthttp = process.env.PORT || 5000;
 const hostname = process.env.HOST || 'localhost';

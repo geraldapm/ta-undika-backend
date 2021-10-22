@@ -4,7 +4,7 @@ const SensorPayloadSchema = Joi.object({
     uuid: Joi.string().required(),
     sensors: Joi.array().items(Joi.object({
         type: Joi.string(),
-        value: Joi.number().double().required(),
+        value: Joi.number().required(),
         valueUnit: Joi.string().required(),
     })).required(),
 });
