@@ -12,7 +12,7 @@ class SensorService {
 
     addSensorByUUId({uuid, sensors}) {
         const indexStation = this._station.findIndex((n) => n.uuid === uuid);
-        if (!indexStation === -1) {
+        if (indexStation === -1) {
             throw new NotFoundError('Stasiun tidak terdaftar.');
         }
         this._station[indexStation] = {

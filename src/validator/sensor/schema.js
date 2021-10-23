@@ -6,6 +6,9 @@ const SensorPayloadSchema = Joi.object({
         type: Joi.string(),
         value: Joi.number().required(),
         valueUnit: Joi.string().required(),
+        displayUnit: Joi.string().required(),
+        minValue: Joi.number().required(),
+        maxValue: Joi.number().min(Joi.ref('minValue')).required(),
     })).required(),
 });
 
