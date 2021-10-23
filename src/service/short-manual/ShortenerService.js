@@ -29,7 +29,7 @@ class ShortenerService {
         // const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
         // const meta = respHeaderMeta.data.meta;
         if (process.env.NODE_ENV === 'production') {
-            shortUrl = `http://${process.env.HOST}/${id}`;
+            shortUrl = `https://${process.env.HOST}/${id}`;
         } else {
             shortUrl = `http://localhost:${process.env.PORT}/${id}`;
         }
