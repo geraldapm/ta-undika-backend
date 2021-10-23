@@ -24,8 +24,10 @@ class ShortenerService {
         let shortUrl = '';
         const respHeader = await axios.get(`http://${process.env.WEB_HOST}/wp-json/wp/v2/search?search=${webid}`);
         const longUrl = respHeader.data[0].url;
-        const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
-        const meta = respHeaderMeta.data.meta;
+
+        // Enabled calling API with meta responses. Useful for URL link redirection with custom page.
+        // const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
+        // const meta = respHeaderMeta.data.meta;
         if (process.env.NODE_ENV === 'production') {
             shortUrl = `http://${process.env.HOST}/${id}`;
         } else {
@@ -33,7 +35,7 @@ class ShortenerService {
         }
 
         const newStation = {
-            uuid, webid, id, longUrl, shortUrl, meta,
+            uuid, webid, id, longUrl, shortUrl,
         };
         this._station.push(newStation);
 
