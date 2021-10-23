@@ -21,11 +21,17 @@ class ShortenerService {
         // TODO: Add the query into wordpress service to get long URL
         // TODO: Map long URL to short URL
         // TODO: Save the short URL using db.
+        const shortUrl = '';
         const respHeader = await axios.get(`http://${process.env.WEB_HOST}/wp-json/wp/v2/search?search=${webid}`);
         const longUrl = respHeader.data[0].url;
         const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
         const meta = respHeaderMeta.data.meta;
-        const shortUrl = `http://${process.env.HOST}:${process.env.PORT}/${id}`;
+        if (process.env.NODE_ENV === 'production') {
+            shortUrl = `http://${process.env.HOST}/${id}`;
+        } else {
+            shortUrl = `http://localhost:${process.env.PORT}/${id}`;
+        }
+
         const newStation = {
             uuid, webid, id, longUrl, shortUrl, meta,
         };
