@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const ShortenerHandler = require('./handler');
-const ShortenerService = require('../../service/short-manual/ShortenerService');
+const ShortenerService = require('../../service/short-db/ShortenerService');
 const ShortenerValidator = require('../../validator/shortener');
 
 const short = new ShortenerHandler(new ShortenerService, ShortenerValidator);
