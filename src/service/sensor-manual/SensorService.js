@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 /* eslint-disable no-underscore-dangle */
+const {nanoid} = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const Station = require('../../models/InMemory/station');
@@ -15,16 +16,29 @@ class SensorService {
         if (indexStation === -1) {
             throw new NotFoundError('Stasiun tidak terdaftar.');
         }
+
+        sensors = sensors.map((sensor, index) => {
+            const senid = nanoid(3);
+            return {
+                id_sensor: `SEN${senid}`,
+                type: sensor.type,
+                value: sensor.value,
+                valueUnit: sensor.valueUnit,
+                displayUnit: sensor.displayUnit,
+                minValue: sensor.minValue,
+                maxValue: sensor.maxValue,
+            };
+        });
+
         this._station[indexStation] = {
             ...this._station[indexStation],
             sensors,
         };
-        const listSensor = sensors;
         const isSuccess = this._station.filter((station) => station.sensors === sensors).length > 0;
         if (!isSuccess) {
-            throw new InvariantError('Catatan gagal ditambahkan');
+            throw new InvariantError('Sensor gagal ditambahkan');
         }
-        return {listSensor};
+        return sensors;
     }
 
     getSensors() {

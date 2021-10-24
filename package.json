@@ -6,7 +6,8 @@
     "scripts": {
         "start": "NODE_ENV=production npx pm2 start ./src/app.js",
         "test": "nodemon ./src/app.js",
-        "lint": "eslint ./src/"
+        "lint": "eslint ./src/",
+        "migrate": "node-pg-migrate"
     },
     "repository": {
         "type": "git",

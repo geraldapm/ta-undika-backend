@@ -60,13 +60,14 @@ class SensorHandler {
     async addSensorHandler(req, res) {
         try {
             this._validator.validateSensorPayload(req.body);
-            const {uuid, sensors} = req.body;
-            const {listSensor} = await this._service.addSensorByUUId({uuid, sensors});
+            const {uuid} = req.body;
+            let {sensors} = req.body;
+            sensors = await this._service.addSensorByUUId({uuid, sensors});
             return res.status(200).json({
                 status: 'success',
                 message: 'sensor berhasil didaftarkan',
                 data: {
-                    listSensor,
+                    sensors,
                 },
             });
         } catch (e) {
