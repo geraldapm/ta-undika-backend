@@ -17,7 +17,7 @@ class ShortenerService {
         if (station) {
             throw new InvariantError('Stasiun sudah terdaftar.');
         }
-        const id = nanoid(3);
+        const urlId = nanoid(3);
         // TODO: Add the query into wordpress service to get long URL
         // TODO: Map long URL to short URL
         // TODO: Save the short URL using db.
@@ -29,21 +29,21 @@ class ShortenerService {
         // const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
         // const meta = respHeaderMeta.data.meta;
         if (process.env.NODE_ENV === 'production') {
-            shortUrl = `https://${process.env.HOST}/${id}`;
+            shortUrl = `https://${process.env.HOST}/${urlId}`;
         } else {
-            shortUrl = `http://localhost:${process.env.PORT}/${id}`;
+            shortUrl = `http://localhost:${process.env.PORT}/${urlId}`;
         }
 
         const newStation = {
-            uuid, webid, id, longUrl, shortUrl,
+            uuid, webid, urlId, longUrl, shortUrl,
         };
         this._station.push(newStation);
 
-        const isSuccess = this._station.filter((station) => station.id === id).length > 0;
+        const isSuccess = this._station.filter((station) => station.urlId === urlId).length > 0;
         if (!isSuccess) {
-            throw new InvariantError('Catatan gagal ditambahkan');
+            throw new InvariantError('Stasiun gagal registrasi');
         }
-        return {id, shortUrl, longUrl};
+        return {urlId, shortUrl, longUrl};
     }
 
     getStations() {
