@@ -11,12 +11,14 @@ const mapDBToModel = ({
     short_url,
     long_url,
     url_id,
+    sensors,
 }) => ({
     uuid,
     webid: web_id,
     urlId: url_id,
     shortUrl: short_url,
     longUrl: long_url,
+    sensors,
 });
 
 class RegisterStation {
@@ -40,13 +42,15 @@ class RegisterStation {
     }
 
     async getStations() {
-        const result = await this._pool.query('SELECT * FROM stations');
+        const result = await this._pool.query(`SELECT st.*, (SELECT json_agg(json_build_object('id_sensor', sen.id_sensor, 'type', sen.type, 'value', sen.value, 'valueUnit', sen.value_unit, 'displayUnit', sen.display_unit, 'minValue', sen.minvalue, 'maxValue', sen.maxvalue))
+        FROM sensors sen WHERE st.uuid = sen.uuid_sensor) as sensors FROM stations st;`);
         return result.rows.map(mapDBToModel);
     }
 
     async getStationById(url_id) {
         const query = {
-            text: 'SELECT * FROM stations WHERE url_id = $1',
+            text: `SELECT st.*, (SELECT json_agg(json_build_object('id_sensor', sen.id_sensor, 'type', sen.type, 'value', sen.value, 'valueUnit', sen.value_unit, 'displayUnit', sen.display_unit, 'minValue', sen.minvalue, 'maxValue', sen.maxvalue)) FROM sensors sen
+            WHERE st.uuid = sen.uuid_sensor) as sensors FROM stations st WHERE url_id = $1`,
             values: [url_id],
         };
         const result = await this._pool.query(query);
@@ -58,7 +62,8 @@ class RegisterStation {
 
     async getStationByUUId(uuid) {
         const query = {
-            text: 'SELECT * FROM stations WHERE uuid = $1',
+            text: `SELECT st.*, (SELECT json_agg(json_build_object('id_sensor', sen.id_sensor, 'type', sen.type, 'value', sen.value, 'valueUnit', sen.value_unit, 'displayUnit', sen.display_unit, 'minValue', sen.minvalue, 'maxValue', sen.maxvalue)) FROM sensors sen
+            WHERE st.uuid = sen.uuid_sensor) as sensors FROM stations st WHERE uuid = $1`,
             values: [uuid],
         };
         const result = await this._pool.query(query);
