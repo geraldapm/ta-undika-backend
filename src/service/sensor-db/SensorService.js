@@ -15,8 +15,8 @@ class SensorService {
 
     async addSensorByUUId({uuid, sensors}) {
         const station = await this._register.isStationExistUUId(uuid);
-        if (station) {
-            throw new InvariantError('Stasiun sudah terdaftar.');
+        if (!station) {
+            throw new InvariantError('Stasiun tidak terdaftar.');
         }
 
         sensors = sensors.map((sensor) => {
@@ -42,13 +42,7 @@ class SensorService {
 
     async getSensors() {
         const result = await this._sensor.getSensors();
-        const stasensor = result.map((sensor) => {
-            return {
-                uuid: sensor.uuid,
-                sensors: sensor.sensors,
-            };
-        });
-        return stasensor;
+        return result;
     }
 
     async getSensorByUUId(uuid) {
@@ -56,7 +50,7 @@ class SensorService {
         if (!sensor) {
             throw new NotFoundError('Sensor tidak ditemukan');
         }
-        return station;
+        return sensor;
     }
 
     async deleteSensorByUUId(uuid) {

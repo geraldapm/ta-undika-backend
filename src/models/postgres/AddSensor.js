@@ -64,26 +64,29 @@ class AddSensor {
     }
 
     async getSensors() {
-        const result = await this._pool.query('SELECT * FROM sensors');
-        return result.rows.map(mapDBToModel);
+        const query = `SELECT  st.uuid, (SELECT json_agg(json_build_object('id_sensor', sen.id_sensor, 'type', sen.type, 'value', sen.value, 'valueUnit', sen.value_unit, 'displayUnit', sen.display_unit, 'minValue', sen.minvalue, 'maxValue', sen.maxvalue))
+        FROM sensors sen WHERE st.uuid = sen.uuid_sensor) as sensors FROM stations st;`;
+        const result = await this._pool.query(query);
+        console.log(result.rows);
+        return result.rows;
     }
 
     async getSensorByUUId(uuid) {
         const query = {
-            text: 'SELECT * FROM sensors WHERE uuid = $1',
+            text: 'SELECT * FROM sensors WHERE uuid_sensor = $1',
             values: [uuid],
         };
         const result = await this._pool.query(query);
         if (!result.rows.length) {
             throw new NotFoundError('Sensor tidak ditemukan');
         }
-        return result.rows.map(mapDBToModel)[0];
+        return result.rows.map(mapDBToModel);
     }
 
-    async deleteSensorByUUId(uuid) {
+    async deleteSensorByUUId(uuid_sensor) {
         const query = {
-            text: 'DELETE FROM sensors WHERE uuid = $1 RETURNING uuid',
-            values: [uuid],
+            text: 'DELETE FROM sensors WHERE uuid_sensor = $1 RETURNING uuid_sensor',
+            values: [uuid_sensor],
         };
 
         const result = await this._pool.query(query);
@@ -91,7 +94,7 @@ class AddSensor {
         if (!result.rows.length) {
             throw new NotFoundError('Sensor gagal dihapus. UUId tidak ditemukan');
         }
-        return result.rows[0].uuid;
+        return result.rows[0].uuid_sensor;
     }
 }
 
