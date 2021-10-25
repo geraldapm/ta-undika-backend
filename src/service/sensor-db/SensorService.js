@@ -35,7 +35,21 @@ class SensorService {
         const resultId = await this._sensor.addSensorByUUId({uuid, sensors});
 
         if (!resultId) {
-            throw new InvariantError('Stasiun gagal registrasi');
+            throw new InvariantError('Stasiun gagal registrasi.');
+        }
+        return sensors;
+    }
+
+    async updateSensorByUUId({uuid, sensors}) {
+        const station = await this._register.isStationExistUUId(uuid);
+        if (!station) {
+            throw new InvariantError('Stasiun tidak terdaftar.');
+        }
+
+        const resultId = await this._sensor.updateSensorByUUId({uuid, sensors});
+
+        if (!resultId) {
+            throw new InvariantError('Stasiun gagal update sensor.');
         }
         return sensors;
     }

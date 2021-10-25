@@ -12,4 +12,12 @@ const SensorPayloadSchema = Joi.object({
     })).required(),
 });
 
-module.exports = {SensorPayloadSchema};
+const UpdateSensorPayloadSchema = Joi.object({
+    uuid: Joi.string().required(),
+    sensors: Joi.array().items(Joi.object({
+        id_sensor: Joi.string(),
+        value: Joi.number().required(),
+    })).required(),
+});
+
+module.exports = {SensorPayloadSchema, UpdateSensorPayloadSchema};

@@ -10,6 +10,7 @@ class SensorHandler {
         this._service = service;
         this._validator = validator;
         this.getSensorHandler = this.getSensorHandler.bind(this);
+        this.updateSensorHandler = this.updateSensorHandler.bind(this);
         this.getSensorsHandler = this.getSensorsHandler.bind(this);
         this.addSensorHandler = this.addSensorHandler.bind(this);
         this.deleteSensorHandler = this.deleteSensorHandler.bind(this);
@@ -67,6 +68,25 @@ class SensorHandler {
             return res.status(200).json({
                 status: 'success',
                 message: 'sensor berhasil didaftarkan',
+                data: {
+                    sensors,
+                },
+            });
+        } catch (e) {
+            console.log(e);
+            this.handleClientError(e, res);
+        }
+    }
+
+    async updateSensorHandler(req, res) {
+        try {
+            this._validator.validateUpdateSensorPayload(req.body);
+            const {uuid} = req.body;
+            let {sensors} = req.body;
+            sensors = await this._service.updateSensorByUUId({uuid, sensors});
+            return res.status(200).json({
+                status: 'success',
+                message: 'sensor berhasil diperbarui',
                 data: {
                     sensors,
                 },

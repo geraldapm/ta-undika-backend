@@ -8,6 +8,7 @@ const SensorService = require('../../service/sensor-db/SensorService');
 const sensor = new SensorHandler(new SensorService, SensorValidator);
 
 router.post('/', sensor.addSensorHandler);
+router.put('/', sensor.updateSensorHandler);
 router.get('/:uuid', sensor.getSensorHandler);
 router.get('/', sensor.getSensorsHandler);
 router.delete('/:uuid', sensor.deleteSensorHandler);

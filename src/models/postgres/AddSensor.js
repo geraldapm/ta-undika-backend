@@ -30,7 +30,6 @@ class AddSensor {
         this._pool = new Pool();
     }
 
-    // TODO: Fix this methor R/W! (Foreign key error)
     async addSensorByUUId({uuid, sensors}) {
         const psensor = sensors.map((sensor) => {
             return [
@@ -46,16 +45,30 @@ class AddSensor {
         });
         console.log(psensor);
         const query = format('INSERT INTO sensors (id_sensor, type, value, value_unit, display_unit, minvalue, maxvalue, uuid_sensor) VALUES %L RETURNING id_sensor', psensor);
-        /* const query = {
-            text: 'INSERT INTO sensors VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING url_id, short_url, long_url',
-            values: [sensors.id_sensor, sensors.type, sensors.value,
-                sensors.valueUnit, sensors.displayUnit, sensors.minValue, sensors.maxValue, uuid],
-        };
 
         const result = await this._pool.query(query);
-        if (!result.rows[0].url_id) {
-            throw new InvariantError('Stasiun gagal registrasi');
-        } */
+        if (!result.rows[0].id_sensor) {
+            throw new InvariantError('Sensor gagal dimasukkan');
+        }
+        return result.rows[0].id_sensor;
+    }
+
+    // TODO: Fix the update sensor service
+    async updateSensorByUUId({uuid, sensors}) {
+        const psensor = sensors.map((sensor) => {
+            return [
+                sensor.id_sensor,
+                sensor.value,
+                uuid,
+            ];
+        });
+        console.log(psensor);
+
+        const query = format(`update sensors
+    set value = bvalue::numeric
+    from (values %L) v(id_psensor, bvalue, uuid)
+    where id_sensor = id_psensor returning id_sensor`, psensor);
+
         const result = await this._pool.query(query);
         if (!result.rows[0].id_sensor) {
             throw new InvariantError('Sensor gagal dimasukkan');
