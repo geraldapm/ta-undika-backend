@@ -25,14 +25,6 @@ class RegisterStation {
     }
 
     async addStation(newStation) {
-        /* const station = {
-            uuid: newStation.uuid,
-            web_id: newStation.webid,
-            short_url: newStation.shortUrl,
-            long_url: newStation.longUrl,
-            url_id: newStation.urlId,
-        };*/
-
         const query = {
             text: 'INSERT INTO stations VALUES($1, $2, $3, $4, $5) RETURNING url_id, short_url, long_url',
             values: [newStation.uuid, newStation.webid, newStation.shortUrl,

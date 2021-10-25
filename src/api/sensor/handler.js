@@ -2,6 +2,7 @@
 /* eslint-disable require-jsdoc */
 
 const ClientError = require('../../exceptions/ClientError');
+const NotFoundError = require('../../exceptions/NotFoundError');
 /** shortener service
      */
 class SensorHandler {

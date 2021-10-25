@@ -52,8 +52,9 @@ exports.up = (pgm) => {
         },
         uuid_sensor: {
             type: 'VARCHAR(64)',
-            references: 'stations',
+            references: 'stations("uuid")',
             onDelete: 'CASCADE',
+            onUpdata: 'CASCADE',
         },
     });
 };

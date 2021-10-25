@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const SensorHandler = require('./handler');
 const SensorValidator = require('../../validator/sensor');
-const SensorService = require('../../service/sensor-manual/SensorService');
+const SensorService = require('../../service/sensor-db/SensorService');
 const sensor = new SensorHandler(new SensorService, SensorValidator);
 
 router.post('/', sensor.addSensorHandler);
