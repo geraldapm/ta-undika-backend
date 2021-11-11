@@ -33,10 +33,9 @@ jobs:
       - name: Deploy to Alibaba cloud
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
+          host: "bemcandra.ga:22"
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          port: 22
           script: |
             pm2 delete all 
             pm2 reset all 
