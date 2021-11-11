@@ -38,10 +38,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
-            sudo su 
-            cd ~/ 
-            pm2 delete all 
-            pm2 reset all 
-            cd ~/ta-undika-backend
-            git pull origin master 
-            npm run start
+            sudo su
+            pm2 delete all &&  pm2 reset all && cd /root/ta-undika-backend && git pull origin master && npm run start
+            
