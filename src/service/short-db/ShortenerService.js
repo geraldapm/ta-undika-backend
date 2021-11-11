@@ -6,13 +6,20 @@ const axios = require('axios');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const RegisterStation = require('../../models/postgres/RegisterStation');
+const AuthStations = require('../../models/stations/AuthStations');
 
 class ShortenerService {
     constructor() {
         this._register = new RegisterStation;
+        this._stations = new AuthStations;
     }
 
     async registerStation({uuid, webid}) {
+        const authstation = await this._stations.readFile();
+        const authstationindex = authstation.stations.filter((n) => n === uuid)[0];
+        if (!authstationindex) {
+            throw new InvariantError('Stasiun tidak terdaftar!');
+        }
         const station = await this._register.isStationExistUUId(uuid);
         if (station) {
             throw new InvariantError('Stasiun sudah terdaftar.');
