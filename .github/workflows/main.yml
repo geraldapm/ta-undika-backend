@@ -38,7 +38,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
-            su - root
+            sudo su 
+            cd ~/ 
             pm2 delete all 
             pm2 reset all 
             cd ~/ta-undika-backend
