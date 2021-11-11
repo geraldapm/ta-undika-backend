@@ -38,8 +38,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
-            sudo su
-            ln -s /usr/bin/nodejs /usr/bin/node
             /usr/local/lib/nodejs/node-v16.2.0-linux-x64/bin/pm2 delete all
             /usr/local/lib/nodejs/node-v16.2.0-linux-x64/bin/pm2 reset all
             cd /root/ta-undika-backend
