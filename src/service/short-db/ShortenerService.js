@@ -44,8 +44,10 @@ class ShortenerService {
         // const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
         // const meta = respHeaderMeta.data.meta;
         if (process.env.NODE_ENV === 'production') {
+            console.log('Production Mode');
             shortUrl = `https://${process.env.HOST}/${urlId}`;
         } else {
+            console.log('Dev Mode');
             shortUrl = `http://localhost:${process.env.PORT}/${urlId}`;
         }
 
