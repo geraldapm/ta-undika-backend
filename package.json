@@ -4,7 +4,7 @@
     "description": "ta-undika-backend",
     "main": "app.js",
     "scripts": {
-        "start": "NODE_ENV=production npx pm2 start ./src/app.js",
+        "start": "NODE_ENV=production; npx pm2 start ./src/app.js",
         "test": "nodemon ./src/app.js",
         "lint": "eslint ./src/",
         "migrate": "node-pg-migrate"
