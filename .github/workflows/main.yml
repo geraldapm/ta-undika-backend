@@ -38,5 +38,6 @@ jobs:
             pm2 reset all
             cd /root/ta-undika-backend
             git pull origin master
+            npm install
             npm run start
             

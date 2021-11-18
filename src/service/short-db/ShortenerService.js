@@ -26,9 +26,19 @@ class ShortenerService {
         }
 
         const urlId = nanoid(3);
+        let longUrl = '';
         let shortUrl = '';
-        const respHeader = await axios.get(`http://${process.env.WEB_HOST}/wp-json/wp/v2/search?search=${webid}`);
-        const longUrl = respHeader.data[0].url;
+        const respHeader = await axios.get(`https://${process.env.WEB_HOST}/wp-json/wp/v2/search?search=${webid}`);
+        if (respHeader.data === undefined || respHeader.data.length === 0) {
+            throw new NotFoundError('Gagal request ke server');
+        } else {
+            console.log(respHeader);
+        }
+        if (!respHeader.data[0].url) {
+            throw new NotFoundError('webid gagal ditemukan');
+        } else {
+            longUrl = respHeader.data[0].url;
+        }
 
         // Enabled calling API with meta responses. Useful for URL link redirection with custom page.
         // const respHeaderMeta = await axios.get(respHeader.data[0]._links.self[0].href);
