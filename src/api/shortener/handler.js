@@ -80,12 +80,10 @@ class ShortenerHandler {
     async getIndexDetailsHandler(req, res) {
         try {
             const {urlId} = req.params;
-            const station = await this._service.getStationById(urlId);
+            const data = await this._service.getStationById(urlId);
             return res.status(200).json({
                 status: 'success',
-                data: {
-                    station,
-                },
+                data,
             });
         } catch (e) {
             console.log(e);
@@ -96,12 +94,10 @@ class ShortenerHandler {
     async getStationDetailsHandler(req, res) {
         try {
             const {uuid} = req.params;
-            const station = await this._service.getStationByUUId(uuid);
+            const data = await this._service.getStationByUUId(uuid);
             return res.status(200).json({
                 status: 'success',
-                data: {
-                    station,
-                },
+                data,
             });
         } catch (e) {
             console.log(e);
