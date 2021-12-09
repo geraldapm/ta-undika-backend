@@ -7,7 +7,8 @@
         "start": "NODE_ENV=production npx pm2 start ./src/app.js",
         "test": "NODE_ENV=development nodemon ./src/app.js",
         "lint": "eslint ./src/",
-        "migrate": "node-pg-migrate"
+        "migrate": "node-pg-migrate",
+        "swagger-autogen": "node ./src/swagger.js"
     },
     "repository": {
         "type": "git",
@@ -32,7 +33,9 @@
         "pg": "^8.7.1",
         "pg-format": "^1.0.4",
         "pg-promise": "^10.11.1",
-        "pm2": "^4.5.6"
+        "pm2": "^4.5.6",
+        "swagger-autogen": "^2.15.0",
+        "swagger-ui-express": "^4.1.4"
     },
     "keywords": [],
     "author": "",
