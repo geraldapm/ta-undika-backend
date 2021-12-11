@@ -39,5 +39,6 @@ jobs:
             cd /root/ta-undika-backend
             git pull origin master
             npm install
+            git stash
             npm run start
             
