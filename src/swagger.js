@@ -13,57 +13,55 @@ const doc = {
     },
     host: 'breoteshr.ml',
     basePath: '/',
-    schemes: ['http', 'https'],
+    schemes: ['https'],
     consumes: ['application/json'],
     produces: ['application/json'],
     tags: [
         {
-            'name': 'User',
-            'description': 'Endpoints',
+            'name': 'Station',
+            'description': 'Station registration system for enabling physical web',
         },
     ],
-    securityDefinitions: {
-        api_key: {
-            type: 'apiKey',
-            name: 'api_key',
-            in: 'header',
-        },
-        petstore_auth: {
-            type: 'oauth2',
-            authorizationUrl: 'https://petstore.swagger.io/oauth/authorize',
-            flow: 'implicit',
-            scopes: {
-                read_pets: 'read your pets',
-                write_pets: 'modify pets in your account',
-            },
-        },
-    },
     definitions: {
-        User: {
-            name: 'Jhon Doe',
-            age: 29,
-            parents: {
-                father: 'Simon Doe',
-                mother: 'Marie Doe',
-            },
-            diplomas: [
+        Station: {
+            uuid: 'ec2f07a3-2463-440b-af7a-2df34068c788',
+            webid: 'tentang',
+            urlId: 'BqX',
+            shortUrl: 'https://breoteshr.ml/BqX',
+            longUrl: 'https://madejombang.id/tentang/',
+            sensors: [
                 {
-                    school: 'XYZ University',
-                    year: 2020,
-                    completed: true,
-                    internship: {
-                        hours: 290,
-                        location: 'XYZ Company',
-                    },
+                    id_sensor: 'SEN2PB',
+                    type: 'DHT11',
+                    value: 78,
+                    valueUnit: 'Humidity',
+                    displayUnit: '%',
+                    minValue: '0',
+                    maxValue: '100',
+                },
+                {
+                    id_sensor: 'SEN187',
+                    type: 'Smoke Sensor',
+                    value: 50,
+                    valueUnit: 'Smokiness',
+                    displayUnit: '%',
+                    minValue: '0',
+                    maxValue: '100',
                 },
             ],
         },
-        AddUser: {
-            $name: 'Jhon Doe',
-            $age: 29,
-            about: '',
+        Sensor: {
+            id_sensor: 'SEN2PB',
+            type: 'DHT11',
+            value: 78,
+            valueUnit: 'Humidity',
+            displayUnit: '%',
+            minValue: '0',
+            maxValue: '100',
         },
     },
+
+
 };
 
 swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {

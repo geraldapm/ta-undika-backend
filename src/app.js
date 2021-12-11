@@ -21,8 +21,6 @@ app.use(express.urlencoded({limit: '50mb', extended: true}));
 /* Add up routes */
 app.use('/sensor', sensor);
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-require('./swagger/endpoints')(app);
-
 app.use('/', shortener);
 
 const porthttp = process.env.PORT || 5000;

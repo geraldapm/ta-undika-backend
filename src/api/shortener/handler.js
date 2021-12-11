@@ -41,10 +41,7 @@ class ShortenerHandler {
             message: 'internal server execption',
         });
     }
-    /**
-     * @param  {object} req
-     * @param  {object} res
-     */
+
     async postIndexHandler(req, res) {
         try {
             this._validator.validateShortPayload(req.body);

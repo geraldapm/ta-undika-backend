@@ -9,30 +9,13 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "User",
-      "description": "Endpoints"
+      "name": "Station",
+      "description": "Station registration system for enabling physical web"
     }
   ],
   "schemes": [
-    "http",
     "https"
   ],
-  "securityDefinitions": {
-    "api_key": {
-      "type": "apiKey",
-      "name": "api_key",
-      "in": "header"
-    },
-    "petstore_auth": {
-      "type": "oauth2",
-      "authorizationUrl": "https://petstore.swagger.io/oauth/authorize",
-      "flow": "implicit",
-      "scopes": {
-        "read_pets": "read your pets",
-        "write_pets": "modify pets in your account"
-      }
-    }
-  },
   "consumes": [
     "application/json"
   ],
@@ -88,85 +71,99 @@
     }
   },
   "definitions": {
-    "User": {
+    "Station": {
       "type": "object",
       "properties": {
-        "name": {
+        "uuid": {
           "type": "string",
-          "example": "Jhon Doe"
+          "example": "ec2f07a3-2463-440b-af7a-2df34068c788"
         },
-        "age": {
-          "type": "number",
-          "example": 29
+        "webid": {
+          "type": "string",
+          "example": "tentang"
         },
-        "parents": {
-          "type": "object",
-          "properties": {
-            "father": {
-              "type": "string",
-              "example": "Simon Doe"
-            },
-            "mother": {
-              "type": "string",
-              "example": "Marie Doe"
-            }
-          }
+        "urlId": {
+          "type": "string",
+          "example": "BqX"
         },
-        "diplomas": {
+        "shortUrl": {
+          "type": "string",
+          "example": "https://breoteshr.ml/BqX"
+        },
+        "longUrl": {
+          "type": "string",
+          "example": "https://madejombang.id/tentang/"
+        },
+        "sensors": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "school": {
+              "id_sensor": {
                 "type": "string",
-                "example": "XYZ University"
+                "example": "SEN187"
               },
-              "year": {
+              "type": {
+                "type": "string",
+                "example": "Smoke Sensor"
+              },
+              "value": {
                 "type": "number",
-                "example": 2020
+                "example": 50
               },
-              "completed": {
-                "type": "boolean",
-                "example": true
+              "valueUnit": {
+                "type": "string",
+                "example": "Smokiness"
               },
-              "internship": {
-                "type": "object",
-                "properties": {
-                  "hours": {
-                    "type": "number",
-                    "example": 290
-                  },
-                  "location": {
-                    "type": "string",
-                    "example": "XYZ Company"
-                  }
-                }
+              "displayUnit": {
+                "type": "string",
+                "example": "%"
+              },
+              "minValue": {
+                "type": "string",
+                "example": "0"
+              },
+              "maxValue": {
+                "type": "string",
+                "example": "100"
               }
             }
           }
         }
       }
     },
-    "AddUser": {
+    "Sensor": {
       "type": "object",
       "properties": {
-        "name": {
+        "id_sensor": {
           "type": "string",
-          "example": "Jhon Doe"
+          "example": "SEN2PB"
         },
-        "age": {
+        "type": {
+          "type": "string",
+          "example": "DHT11"
+        },
+        "value": {
           "type": "number",
-          "example": 29
+          "example": 78
         },
-        "about": {
+        "valueUnit": {
           "type": "string",
-          "example": ""
+          "example": "Humidity"
+        },
+        "displayUnit": {
+          "type": "string",
+          "example": "%"
+        },
+        "minValue": {
+          "type": "string",
+          "example": "0"
+        },
+        "maxValue": {
+          "type": "string",
+          "example": "100"
         }
-      },
-      "required": [
-        "name",
-        "age"
-      ]
+      }
     }
   }
 }

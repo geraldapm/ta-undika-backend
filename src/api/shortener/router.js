@@ -6,13 +6,16 @@ const ShortenerHandler = require('./handler');
 const ShortenerService = require('../../service/short-db/ShortenerService');
 const ShortenerValidator = require('../../validator/shortener');
 
-const short = new ShortenerHandler(new ShortenerService, ShortenerValidator);
-router.get('/station/:uuid', short.getStationDetailsHandler);
-router.delete('/:uuid', short.deleteIndexHandler);
-router.get('/api/:urlId', short.getIndexDetailsHandler);
-router.get('/:urlId', short.redirectIndexHandler);
-router.get('/', short.getIndexHandler);
-router.post('/', short.postIndexHandler);
+const shortenerService = new ShortenerService;
+
+const shortenerHandler = new ShortenerHandler(shortenerService,
+    ShortenerValidator);
+router.get('/station/:uuid', shortenerHandler.getStationDetailsHandler);
+router.delete('/:uuid', shortenerHandler.deleteIndexHandler);
+router.get('/api/:urlId', shortenerHandler.getIndexDetailsHandler);
+router.get('/:urlId', shortenerHandler.redirectIndexHandler);
+router.get('/', shortenerHandler.getIndexHandler);
+router.post('/', shortenerHandler.postIndexHandler);
 
 
 module.exports = router;
