@@ -2,8 +2,8 @@
 const swaggerAutogen = require('swagger-autogen')();
 const path = require('path');
 const outputFile = path.join(__dirname, './swagger/swagger_output.json');
-const endpointsFiles = [path.join(__dirname, './api/sensor/router.js'),
-    path.join(__dirname, './api/shortener/router.js')];
+const endpointsFiles = [path.join(__dirname, './controller/sensor/router.js'),
+    path.join(__dirname, './controller/shortener/router.js')];
 
 const doc = {
     info: {
@@ -18,7 +18,7 @@ const doc = {
     produces: ['application/json'],
     tags: [
         {
-            'name': 'Station',
+            'name': 'Registration Service',
             'description': 'Station registration system for enabling physical web',
         },
     ],

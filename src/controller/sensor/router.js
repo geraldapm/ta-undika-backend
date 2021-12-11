@@ -7,11 +7,11 @@ const SensorValidator = require('../../validator/sensor');
 const SensorService = require('../../service/sensor-db/SensorService');
 const sensor = new SensorHandler(new SensorService, SensorValidator);
 
-router.post('/', sensor.addSensorHandler);
-router.put('/', sensor.updateSensorHandler);
-router.get('/:uuid', sensor.getSensorHandler);
-router.get('/', sensor.getSensorsHandler);
-router.delete('/:uuid', sensor.deleteSensorHandler);
+router.post('/sensor', sensor.addSensorHandler);
+router.put('/sensor', sensor.updateSensorHandler);
+router.get('/sensor/:uuid', sensor.getSensorHandler);
+router.get('/sensor', sensor.getSensorsHandler);
+router.delete('/sensor/:uuid', sensor.deleteSensorHandler);
 
 module.exports = router;
 

@@ -9,7 +9,7 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "Station",
+      "name": "Registration Service",
       "description": "Station registration system for enabling physical web"
     }
   ],
@@ -23,21 +23,33 @@
     "application/json"
   ],
   "paths": {
-    "/": {
-      "get": {
+    "/sensor": {
+      "post": {
         "tags": [],
         "description": "",
         "parameters": [],
         "responses": {}
       },
-      "post": {
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
         "tags": [],
         "description": "",
         "parameters": [],
         "responses": {}
       }
     },
-    "/{uuid}": {
+    "/sensor/{uuid}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
       "delete": {
         "tags": [],
         "description": "",
@@ -47,26 +59,603 @@
     },
     "/station/{uuid}": {
       "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Registration Service"
+        ],
+        "description": "Get specific station information based on UUID",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Bluetooth UUID",
+            "schema": {
+              "type": "string",
+              "example": "ec2f07a3-2463-440b-af7a-2df34068c788"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "uuid": {
+                      "type": "string",
+                      "example": "ec2f07a3-2463-440b-af7a-2df34068c788"
+                    },
+                    "webid": {
+                      "type": "string",
+                      "example": "tentang"
+                    },
+                    "urlId": {
+                      "type": "string",
+                      "example": "BqX"
+                    },
+                    "shortUrl": {
+                      "type": "string",
+                      "example": "https://breoteshr.ml/BqX"
+                    },
+                    "longUrl": {
+                      "type": "string",
+                      "example": "https://madejombang.id/tentang/"
+                    },
+                    "sensors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id_sensor": {
+                            "type": "string",
+                            "example": "SEN187"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "Smoke Sensor"
+                          },
+                          "value": {
+                            "type": "number",
+                            "example": 50
+                          },
+                          "valueUnit": {
+                            "type": "string",
+                            "example": "Smokiness"
+                          },
+                          "displayUnit": {
+                            "type": "string",
+                            "example": "%"
+                          },
+                          "minValue": {
+                            "type": "string",
+                            "example": "0"
+                          },
+                          "maxValue": {
+                            "type": "string",
+                            "example": "100"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Found the station entry"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Stasiun tidak ditemukan"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "The station specified by UUID has not found."
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
+      }
+    },
+    "/{uuid}": {
+      "delete": {
+        "tags": [
+          "Registration Service"
+        ],
+        "description": "Delete (unregister) station information based on UUID",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Bluetooth UUID",
+            "schema": {
+              "type": "string",
+              "example": "ec2f07a3-2463-440b-af7a-2df34068c788"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Stasiun berhasil unregister."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Stasiun tidak ditemukan"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "The station specified by UUID has not found."
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal Server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
       }
     },
     "/api/{urlId}": {
       "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Registration Service"
+        ],
+        "description": "Get specific station information based on URL id",
+        "parameters": [
+          {
+            "name": "urlId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "API URL id",
+            "schema": {
+              "type": "string",
+              "example": "BqX"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "uuid": {
+                      "type": "string",
+                      "example": "ec2f07a3-2463-440b-af7a-2df34068c788"
+                    },
+                    "webid": {
+                      "type": "string",
+                      "example": "tentang"
+                    },
+                    "urlId": {
+                      "type": "string",
+                      "example": "BqX"
+                    },
+                    "shortUrl": {
+                      "type": "string",
+                      "example": "https://breoteshr.ml/BqX"
+                    },
+                    "longUrl": {
+                      "type": "string",
+                      "example": "https://madejombang.id/tentang/"
+                    },
+                    "sensors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id_sensor": {
+                            "type": "string",
+                            "example": "SEN187"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "Smoke Sensor"
+                          },
+                          "value": {
+                            "type": "number",
+                            "example": 50
+                          },
+                          "valueUnit": {
+                            "type": "string",
+                            "example": "Smokiness"
+                          },
+                          "displayUnit": {
+                            "type": "string",
+                            "example": "%"
+                          },
+                          "minValue": {
+                            "type": "string",
+                            "example": "0"
+                          },
+                          "maxValue": {
+                            "type": "string",
+                            "example": "100"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Found the station entry"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Stasiun tidak ditemukan"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "The station specified by URL id has not found."
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
       }
     },
     "/{urlId}": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Registration Service"
+        ],
+        "description": "Redirects short URL into Long URL",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/html"
+        ],
+        "parameters": [
+          {
+            "name": "urlId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "API URL id",
+            "schema": {
+              "type": "string",
+              "example": "BqX"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "schema": {
+              "type": "string",
+              "example": "https://madejombang.id/tentang",
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Found"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "URL ID tidak ditemukan"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "The URL id specified has not found."
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Registration Service"
+        ],
+        "description": "Get all stations registered in the server",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "stations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "uuid": {
+                            "type": "string",
+                            "example": "88973355-ff01-42b9-cdef-9d0ff2b3219d"
+                          },
+                          "webid": {
+                            "type": "string",
+                            "example": "tentang"
+                          },
+                          "urlId": {
+                            "type": "string",
+                            "example": "5Zl"
+                          },
+                          "shortUrl": {
+                            "type": "string",
+                            "example": "https://breoteshr.ml/5Zl"
+                          },
+                          "longUrl": {
+                            "type": "string",
+                            "example": "https://madejombang.id/tentang/"
+                          },
+                          "sensors": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Registration Service"
+        ],
+        "description": "Get specific station information based on URL id",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Registering for a new station.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "uuid": {
+                  "type": "string",
+                  "example": "88973355-ff01-42b9-cdef-9d0ff2b3219d"
+                },
+                "webid": {
+                  "type": "string",
+                  "example": "sendang made"
+                }
+              },
+              "required": [
+                "uuid",
+                "webid"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "uuid": {
+                      "type": "string",
+                      "example": "ec2f07a3-2463-440b-af7a-2df34068c788"
+                    },
+                    "webid": {
+                      "type": "string",
+                      "example": "tentang"
+                    },
+                    "urlId": {
+                      "type": "string",
+                      "example": "BqX"
+                    },
+                    "shortUrl": {
+                      "type": "string",
+                      "example": "https://breoteshr.ml/BqX"
+                    },
+                    "longUrl": {
+                      "type": "string",
+                      "example": "https://madejombang.id/tentang/"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Stasiun tidak terdaftar!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Stasiun tidak terdaftar pada station list di server"
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
       }
     }
   },

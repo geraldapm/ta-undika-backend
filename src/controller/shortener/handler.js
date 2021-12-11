@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
-
+/* eslint-disable no-unused-vars */
+/* eslint-disable new-cap */
 const ClientError = require('../../exceptions/ClientError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 /** shortener service
@@ -67,7 +68,7 @@ class ShortenerHandler {
         try {
             const {urlId} = req.params;
             const station = await this._service.getStationById(urlId);
-            return res.redirect(station.longUrl);
+            return res.status(302).redirect(station.longUrl);
         } catch (e) {
             console.log(e);
             this.handleClientError(e, res);
