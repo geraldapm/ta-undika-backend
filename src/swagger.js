@@ -21,6 +21,10 @@ const doc = {
             'name': 'Registration Service',
             'description': 'Station registration system for enabling physical web',
         },
+        {
+            'name': 'Sensor Service',
+            'description': 'Sensor CRUD system for each station',
+        },
     ],
     definitions: {
         Station: {

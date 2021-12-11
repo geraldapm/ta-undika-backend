@@ -11,6 +11,10 @@
     {
       "name": "Registration Service",
       "description": "Station registration system for enabling physical web"
+    },
+    {
+      "name": "Sensor Service",
+      "description": "Sensor CRUD system for each station"
     }
   ],
   "schemes": [
@@ -25,36 +29,607 @@
   "paths": {
     "/sensor": {
       "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Sensor Service"
+        ],
+        "description": "Register sensor for each server",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Registering for a new sensor.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "uuid": {
+                  "type": "string",
+                  "example": "88973355-ff01-42b9-a9ad-9d0ff2b3219d"
+                },
+                "sensors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "DHT11"
+                      },
+                      "value": {
+                        "type": "number",
+                        "example": 78
+                      },
+                      "valueUnit": {
+                        "type": "string",
+                        "example": "Humidity"
+                      },
+                      "displayUnit": {
+                        "type": "string",
+                        "example": "%"
+                      },
+                      "minValue": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "maxValue": {
+                        "type": "number",
+                        "example": 100
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "value",
+                      "valueUnit",
+                      "displayUnit",
+                      "minValue",
+                      "maxValue"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "uuid",
+                "sensors"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "sensor berhasil didaftarkan"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "sensors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id_sensor": {
+                            "type": "string",
+                            "example": "SENWG8"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "DHT11"
+                          },
+                          "value": {
+                            "type": "number",
+                            "example": 78
+                          },
+                          "valueUnit": {
+                            "type": "string",
+                            "example": "Humidity"
+                          },
+                          "displayUnit": {
+                            "type": "string",
+                            "example": "%"
+                          },
+                          "minValue": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "maxValue": {
+                            "type": "number",
+                            "example": 100
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Registered new sensor entry"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Stasiun tidak ditemukan"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "The station specified by UUID has not found."
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
       },
       "put": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Sensor Service"
+        ],
+        "description": "Updated sensor value for each sensorId",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Updated sensor values.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "uuid": {
+                  "type": "string",
+                  "example": "88973355-ff01-42b9-59ad-9d0ff2b3219d"
+                },
+                "sensors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id_sensor": {
+                        "type": "string",
+                        "example": "SENWG8"
+                      },
+                      "value": {
+                        "type": "number",
+                        "example": 50
+                      }
+                    },
+                    "required": [
+                      "id_sensor",
+                      "value"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "uuid",
+                "sensors"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "sensor berhasil diperbarui"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "sensors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id_sensor": {
+                            "type": "string",
+                            "example": "SENWG8"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "DHT11"
+                          },
+                          "value": {
+                            "type": "number",
+                            "example": 78
+                          },
+                          "valueUnit": {
+                            "type": "string",
+                            "example": "Humidity"
+                          },
+                          "displayUnit": {
+                            "type": "string",
+                            "example": "%"
+                          },
+                          "minValue": {
+                            "type": "number",
+                            "example": 0
+                          },
+                          "maxValue": {
+                            "type": "number",
+                            "example": 100
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Stasiun tidak ditemukan"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "The station specified by UUID has not found."
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
       },
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Sensor Service"
+        ],
+        "description": "Updated sensor value for each sensorId",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "sensors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "uuid": {
+                            "type": "string",
+                            "example": "88973355-ff01-42b9-cdef-9d0ff2b3219d"
+                          },
+                          "sensors": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id_sensor": {
+                                  "type": "string",
+                                  "example": "SEN0yf"
+                                },
+                                "type": {
+                                  "type": "string",
+                                  "example": "LM35"
+                                },
+                                "value": {
+                                  "type": "number",
+                                  "example": 30.25
+                                },
+                                "valueUnit": {
+                                  "type": "string",
+                                  "example": "Celcius"
+                                },
+                                "displayUnit": {
+                                  "type": "string",
+                                  "example": "C"
+                                },
+                                "minValue": {
+                                  "type": "string",
+                                  "example": "0"
+                                },
+                                "maxValue": {
+                                  "type": "string",
+                                  "example": "100"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Get all sensor entry"
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
       }
     },
     "/sensor/{uuid}": {
       "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Sensor Service"
+        ],
+        "description": "Get sensor entries for each station",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Bluetooth UUID",
+            "schema": {
+              "type": "string",
+              "example": "ec2f07a3-2463-440b-af7a-2df34068c788"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "sensor": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id_sensor": {
+                            "type": "string",
+                            "example": "SENWG8"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "DHT11"
+                          },
+                          "value": {
+                            "type": "string",
+                            "example": "78.00"
+                          },
+                          "valueUnit": {
+                            "type": "string",
+                            "example": "Humidity"
+                          },
+                          "displayUnit": {
+                            "type": "string",
+                            "example": "%"
+                          },
+                          "minValue": {
+                            "type": "string",
+                            "example": "0"
+                          },
+                          "maxValue": {
+                            "type": "string",
+                            "example": "100"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Registered new sensor entry"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Stasiun tidak ditemukan"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "The station specified by UUID has not found."
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
       },
       "delete": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Registration Service"
+        ],
+        "description": "Delete sensor values",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Bluetooth UUID",
+            "schema": {
+              "type": "string",
+              "example": "ec2f07a3-2463-440b-af7a-2df34068c788"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Sensor berhasil dihapus."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Stasiun tidak ditemukan"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "The station specified by UUID has not found."
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "fail"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal Server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server error"
+          }
+        }
       }
     },
     "/station/{uuid}": {
