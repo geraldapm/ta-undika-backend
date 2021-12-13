@@ -39,6 +39,7 @@ jobs:
             cd /root/ta-undika-backend
             git pull origin master
             npm install
+            npm run swagger-autogen
             git stash
             npm run start
             
