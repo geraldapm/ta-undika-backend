@@ -219,7 +219,7 @@ router.route('/sensor').get(sensor.getSensorsHandler, (res, req) => {
 });
 
 router.route('/sensor/:uuid').delete(sensor.deleteSensorHandler, (res, req) => {
-    /* #swagger.tags = ['Registration Service']
+    /* #swagger.tags = ['Sensor Service']
     #swagger.description = 'Delete sensor values' */
 
     /* #swagger.parameters['uuid'] = {

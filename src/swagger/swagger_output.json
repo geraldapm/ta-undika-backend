@@ -555,7 +555,7 @@
       },
       "delete": {
         "tags": [
-          "Registration Service"
+          "Sensor Service"
         ],
         "description": "Delete sensor values",
         "parameters": [
@@ -772,7 +772,7 @@
     "/{uuid}": {
       "delete": {
         "tags": [
-          "Sensor Service"
+          "Registration Service"
         ],
         "description": "Delete (unregister) station information based on UUID",
         "parameters": [
