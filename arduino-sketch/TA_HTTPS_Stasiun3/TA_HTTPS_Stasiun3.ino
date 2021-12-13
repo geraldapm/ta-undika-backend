@@ -263,9 +263,9 @@ bool readSensor() {
   Serial.println();
 
   String temp = obj["data"]["sensor"][0]["value"];
-  suhu = temp.toInt();
+  humid = temp.toInt();
   String temp2 = obj["data"]["sensor"][1]["value"];
-  humid = temp2.toInt();
+  suhu = temp2.toInt();
 
   //Baca data sensor lewat GET
   res = APICall(serverName, 0, "/sensor/" + BEACON_NEI2, out);
@@ -519,23 +519,29 @@ void configLed() {
 void relayController(int setsuhu, int sethumid, int setldr) {
   if (suhu != 0 || humid != 0 || ldr != 0) {
     if (suhu <= setsuhu) {
+      Serial.println("Relay1 ON");
       digitalWrite(relay1, RELAY_ON);
     }
     else {
+      Serial.println("Relay1 OFF");
       digitalWrite(relay1, RELAY_OFF);
     }
 
     if (humid <= sethumid) {
+      Serial.println("Relay2 ON");
       digitalWrite(relay2, RELAY_ON);
     }
     else {
+      Serial.println("Relay2 OFF");
       digitalWrite(relay2, RELAY_OFF);
     }
 
     if (ldr <= setldr) {
+      Serial.println("Relay3 ON");
       digitalWrite(relay3, RELAY_ON);
     }
     else {
+      Serial.println("Relay3 OFF");
       digitalWrite(relay3, RELAY_OFF);
     }
   }

@@ -306,9 +306,9 @@ bool UpdateSensor() {
   //set PUT message format
   doc["uuid"] = BEACON_UUID;
   doc["sensors"][0]["id_sensor"] = sensorid[0];
-  doc["sensors"][0]["value"] = suhu;
+  doc["sensors"][0]["value"] = humid;
   doc["sensors"][1]["id_sensor"] = sensorid[1];
-  doc["sensors"][1]["value"] = humid;
+  doc["sensors"][1]["value"] = suhu;
 
   String out;
   serializeJson(doc, out);
