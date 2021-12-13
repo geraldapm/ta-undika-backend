@@ -70,7 +70,7 @@ router.route('/station/:uuid').get(shortenerHandler.getStationDetailsHandler,
     });
 
 router.route('/:uuid').delete(shortenerHandler.deleteIndexHandler, (req, res) => {
-    /* #swagger.tags = ['Registration Service']
+    /* #swagger.tags = ['Sensor Service']
         #swagger.description = 'Delete (unregister) station information based on UUID' */
 
     /* #swagger.parameters['uuid'] = {
