@@ -276,7 +276,7 @@ bool readSensor() {
   Serial.println();
 
   String temp3 = obj["data"]["sensor"][0]["value"];
-  ldr = temp.toInt();
+  ldr = temp3.toInt();
 
   if (res == "") {
     return false;
