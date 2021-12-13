@@ -772,7 +772,7 @@
     "/{uuid}": {
       "delete": {
         "tags": [
-          "Registration Service"
+          "Sensor Service"
         ],
         "description": "Delete (unregister) station information based on UUID",
         "parameters": [
