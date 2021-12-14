@@ -68,6 +68,7 @@ class SensorHandler {
             return res.status(200).json({
                 status: 'success',
                 message: 'sensor berhasil didaftarkan',
+                uuid: uuid,
                 data: {
                     sensors,
                 },
