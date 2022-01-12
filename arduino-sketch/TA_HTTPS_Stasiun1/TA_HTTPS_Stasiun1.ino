@@ -98,7 +98,7 @@ DHT dht1(DHTSensor,11);
 double hitungSuhu(int analog) {
   double vop = 1.0;
   double vin = 5;
-  return ((double)analog/4095)*(vin/vop)*100;
+  return ((double)analog/4096)*(vin/vop)*100;
 }
 
 //define feedback led
@@ -621,7 +621,7 @@ void loop() {
     setLed(isRegistered);
   }
   if ( waktu >= sampletime ) {
-    Serial.print("Salam P -> CNT: ");
+    Serial.print("Monitor 1 -> CNT: ");
     Serial.print(cnt);
     Serial.print(" Suhu: ");
     Serial.print(suhu);

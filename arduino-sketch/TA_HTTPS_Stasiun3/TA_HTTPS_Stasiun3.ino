@@ -187,7 +187,7 @@ void finishStation() {
   String url;
   do {
     setLed(isRegistered);  
-    String webid = "tentang";
+    String webid = "beranda";
     url = RegisterStation(webid);
   
     if (url != "") {
