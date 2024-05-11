@@ -6,3 +6,8 @@ Pada Tugas Akhir ini akan mengimplementasikan Sistem Pengenalan Desa Wisata yang
 
 [Link Repositori Tugas Akhir](https://repository.dinamika.ac.id/id/eprint/6214/)
 [Related Paper](https://ejournal.unisbablitar.ac.id/index.php/antivirus/article/view/1611)
+
+Cara penggunaan:
+
+1. copy [.env.example](./.env.example) menjadi .env dan isi informasi tentang URL, listen port dan koneksi DB.
+2. start aplikasi dengan menggunakan `npm start`.
