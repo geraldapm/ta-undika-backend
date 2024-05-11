@@ -28,6 +28,7 @@ const hostname = process.env.HOST || 'localhost';
 
 const httpServer = http.createServer(app);
 
+// Start service
 httpServer.listen(porthttp, () => {
     console.log(`Server berjalan pada host ${hostname} dan port ${porthttp}`);
 });
