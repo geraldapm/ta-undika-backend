@@ -1,0 +1,20 @@
+version: "3"
+services:
+  # TODO: Containerize app
+  # backend:
+  #   image: geraldapm/physweb-backend:latest
+  #   ports:
+  #     - 5000:5000
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: notsecret
+      POSTGRES_DB: physweb
+      POSTGRES_USER: physweb
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
